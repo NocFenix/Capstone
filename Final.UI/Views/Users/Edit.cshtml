@@ -1,0 +1,109 @@
+﻿@model Final.UI.Models.UserShiftViewModel
+
+@{
+    ViewBag.Title = "Edit Worker";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Worker</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.User.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.EmailAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.EmailAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.Active, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.User.Active)
+                    @Html.ValidationMessageFor(model => model.User.Active, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <span class="control-label col-md-2" style="font-weight:bold">Shifts</span>
+            <div class="col-md-10">
+                @for (int i = 0; i < Model.AllShifts.Count; i++)
+                {
+                    int counter = 0;
+                    for (int j = 0; j < Model.AssignedShifts.Count; j++)
+                    {
+                        if (Model.AllShifts[i].Id == Model.AssignedShifts[j].Id)
+                        {
+                            Model.AllShifts[i].Include = true;
+                            @Html.HiddenFor(m => m.AllShifts[i].Id)
+                            @Html.CheckBoxFor(m => m.AllShifts[i].Include)
+                            @Html.Raw("&nbsp;")
+                            @Html.Name(Model.AllShifts[i].Name)
+                            <br />
+                        }
+                        else
+                        {
+                            counter++;
+                        }
+                    }
+
+                    if (counter == Model.AssignedShifts.Count)
+                    {
+                        @Html.HiddenFor(m => m.AllShifts[i].Id)
+                        @Html.CheckBoxFor(m => m.AllShifts[i].Include)
+                        @Html.Raw("&nbsp;")
+                        @Html.Name(Model.AllShifts[i].Name)
+                        <br />
+                    }
+                }
+            </div>
+        </div>
+
+        @for (int i = 0; i < Model.AssignedShifts.Count; i++)
+        {
+            @Html.HiddenFor(m => m.AssignedShifts[i].Id)
+            Model.AssignedShifts[i].Include = true;
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

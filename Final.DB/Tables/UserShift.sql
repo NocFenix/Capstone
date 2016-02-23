@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[UserShift]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+    [UserId] INT NOT NULL,
+    [ShiftId] INT NOT NULL,
+    [Active] BIT NOT NULL,
+	CONSTRAINT fk_User_ShiftId FOREIGN KEY(UserId) REFERENCES [User](Id),
+	CONSTRAINT fk_Shift_UserId FOREIGN KEY(ShiftId) REFERENCES [Shift](Id))

@@ -1,0 +1,90 @@
+﻿@model Final.UI.Models.Day
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Day</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpeningShift)
+        </dt>
+
+        <dd>
+            @ViewBag.OpeningShift
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MorningShift1)
+        </dt>
+
+        <dd>
+            @ViewBag.MorningShift1
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MorningShift2)
+        </dt>
+
+        <dd>
+            @ViewBag.MorningShift2
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LunchShift1)
+        </dt>
+
+        <dd>
+            @ViewBag.LunchShift1
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LunchShift2)
+        </dt>
+
+        <dd>
+            @ViewBag.LunchShift2
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AfternoonShift1)
+        </dt>
+
+        <dd>
+            @ViewBag.AfternoonShift1
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AfternoonShift2)
+        </dt>
+
+        <dd>
+            @ViewBag.AfternoonShift2
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClosingShift)
+        </dt>
+
+        <dd>
+            @ViewBag.ClosingShift
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

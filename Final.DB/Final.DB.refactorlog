@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="1fbdcb62-8b5b-43b3-954a-7cf411bca21b" ChangeDateTime="10/23/2015 00:13:49">
+    <Property Name="ElementName" Value="[dbo].[Day].[Opener]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Day]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OpeningShift" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="00fe5dee-2f61-4e21-9b15-3ab8f2f8258b" ChangeDateTime="10/23/2015 00:13:54">
+    <Property Name="ElementName" Value="[dbo].[Day].[Morning]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Day]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MorningShift" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ba878d21-9d14-47eb-ac32-2dce30895eff" ChangeDateTime="10/23/2015 00:14:05">
+    <Property Name="ElementName" Value="[dbo].[Day].[MorningShift]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Day]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MorningShift1" />
+  </Operation>
+</Operations>

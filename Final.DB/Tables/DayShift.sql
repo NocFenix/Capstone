@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[DayShift]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+    [DayId] INT NOT NULL,
+    [ShiftId] INT NOT NULL,
+	CONSTRAINT fk_Day_ShiftId FOREIGN KEY(DayId) REFERENCES [Day](Id),
+	CONSTRAINT fk_Shift_DayId FOREIGN KEY(ShiftId) REFERENCES [Shift](Id)
+)

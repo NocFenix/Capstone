@@ -1,0 +1,5 @@
+C:\Users\NJ\Documents\School\CAP 499\FinalProject\Final.DB\bin\Debug\Final.DB.dacpac
+C:\Users\NJ\Documents\School\CAP 499\FinalProject\Final.DB\bin\Debug\Final.DB.dll
+C:\Users\NJ\Documents\School\CAP 499\FinalProject\Final.DB\bin\Debug\Final.DB.pdb
+C:\Users\NJ\Documents\School\CAP 499\FinalProject\Final.DB\obj\Debug\Final.DB.dll
+C:\Users\NJ\Documents\School\CAP 499\FinalProject\Final.DB\obj\Debug\Final.DB.pdb

@@ -1,0 +1,22 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The column [dbo].[Day].[ShiftId] is being dropped, data loss could occur.
+
+** User actions
+     Alter
+       [dbo].[Day] (Table)
+     Create
+       [dbo].[DayShift] (Table)
+       [dbo].[fk_Day_ShiftId] (Foreign Key)
+       [dbo].[fk_Shift_DayId] (Foreign Key)
+
+** Supporting actions
+
+The column [dbo].[Day].[ShiftId] is being dropped, data loss could occur.
+

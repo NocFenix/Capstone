@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CapstoneModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Availibility">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="StartHour" Type="Int32" Nullable="false" />
+    <Property Name="EndHour" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.fk_User_Availibility" FromRole="Availibility" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UserRoles" Relationship="Self.fk_User_RoleId" FromRole="Role" ToRole="UserRole" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmailAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Availibilities" Relationship="Self.fk_User_Availibility" FromRole="User" ToRole="Availibility" />
+    <NavigationProperty Name="UserRoles" Relationship="Self.fk_Role_UserId" FromRole="User" ToRole="UserRole" />
+    <NavigationProperty Name="UserShifts" Relationship="CapstoneModel.fk_User_ShiftId" FromRole="User" ToRole="UserShift" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="Self.fk_User_RoleId" FromRole="UserRole" ToRole="Role" />
+    <NavigationProperty Name="User" Relationship="Self.fk_Role_UserId" FromRole="UserRole" ToRole="User" />
+  </EntityType>
+  <Association Name="fk_User_Availibility">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Availibility" Type="Self.Availibility" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Availibility">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_User_RoleId">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Role_UserId">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CapstoneEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Availibilities" EntityType="Self.Availibility" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+    <AssociationSet Name="fk_User_Availibility" Association="Self.fk_User_Availibility">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Availibility" EntitySet="Availibilities" />
+    </AssociationSet>
+    <AssociationSet Name="fk_User_RoleId" Association="Self.fk_User_RoleId">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="UserRole" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Role_UserId" Association="Self.fk_Role_UserId">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserRole" EntitySet="UserRoles" />
+    </AssociationSet>
+    <EntitySet Name="Days" EntityType="CapstoneModel.Day" />
+    <EntitySet Name="Shifts" EntityType="CapstoneModel.Shift" />
+    <EntitySet Name="UserShifts" EntityType="CapstoneModel.UserShift" />
+    <AssociationSet Name="fk_Shift_UserId" Association="CapstoneModel.fk_Shift_UserId">
+      <End Role="Shift" EntitySet="Shifts" />
+      <End Role="UserShift" EntitySet="UserShifts" />
+    </AssociationSet>
+    <AssociationSet Name="fk_User_ShiftId" Association="CapstoneModel.fk_User_ShiftId">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserShift" EntitySet="UserShifts" />
+    </AssociationSet>
+    <EntitySet Name="DayShifts" EntityType="CapstoneModel.DayShift" />
+    <AssociationSet Name="fk_Day_ShiftId" Association="CapstoneModel.fk_Day_ShiftId">
+      <End Role="Day" EntitySet="Days" />
+      <End Role="DayShift" EntitySet="DayShifts" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Shift_DayId" Association="CapstoneModel.fk_Shift_DayId">
+      <End Role="Shift" EntitySet="Shifts" />
+      <End Role="DayShift" EntitySet="DayShifts" />
+    </AssociationSet>
+    <EntitySet Name="C__RefactorLog" EntityType="CapstoneModel.C__RefactorLog" />
+  </EntityContainer>
+  <EntityType Name="Day">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="DayShifts" Relationship="CapstoneModel.fk_Day_ShiftId" FromRole="Day" ToRole="DayShift" />
+    <Property Name="OpeningShift" Type="Int32" Nullable="false" />
+    <Property Name="MorningShift1" Type="Int32" Nullable="false" />
+    <Property Name="MorningShift2" Type="Int32" Nullable="false" />
+    <Property Name="LunchShift1" Type="Int32" Nullable="false" />
+    <Property Name="LunchShift2" Type="Int32" Nullable="false" />
+    <Property Name="AfternoonShift1" Type="Int32" Nullable="false" />
+    <Property Name="AfternoonShift2" Type="Int32" Nullable="false" />
+    <Property Name="ClosingShift" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Shift">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StartTime" Type="Int32" Nullable="false" />
+    <Property Name="EndTime" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="UserShifts" Relationship="CapstoneModel.fk_Shift_UserId" FromRole="Shift" ToRole="UserShift" />
+    <NavigationProperty Name="DayShifts" Relationship="CapstoneModel.fk_Shift_DayId" FromRole="Shift" ToRole="DayShift" />
+  </EntityType>
+  <EntityType Name="UserShift">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ShiftId" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Shift" Relationship="CapstoneModel.fk_Shift_UserId" FromRole="UserShift" ToRole="Shift" />
+    <NavigationProperty Name="User" Relationship="CapstoneModel.fk_User_ShiftId" FromRole="UserShift" ToRole="User" />
+  </EntityType>
+  <Association Name="fk_Shift_UserId">
+    <End Type="CapstoneModel.Shift" Role="Shift" Multiplicity="1" />
+    <End Type="CapstoneModel.UserShift" Role="UserShift" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shift">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserShift">
+        <PropertyRef Name="ShiftId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_User_ShiftId">
+    <End Type="CapstoneModel.User" Role="User" Multiplicity="1" />
+    <End Type="CapstoneModel.UserShift" Role="UserShift" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserShift">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="DayShift">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DayId" Type="Int32" Nullable="false" />
+    <Property Name="ShiftId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Day" Relationship="CapstoneModel.fk_Day_ShiftId" FromRole="DayShift" ToRole="Day" />
+    <NavigationProperty Name="Shift" Relationship="CapstoneModel.fk_Shift_DayId" FromRole="DayShift" ToRole="Shift" />
+  </EntityType>
+  <Association Name="fk_Day_ShiftId">
+    <End Type="CapstoneModel.Day" Role="Day" Multiplicity="1" />
+    <End Type="CapstoneModel.DayShift" Role="DayShift" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Day">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DayShift">
+        <PropertyRef Name="DayId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Shift_DayId">
+    <End Type="CapstoneModel.Shift" Role="Shift" Multiplicity="1" />
+    <End Type="CapstoneModel.DayShift" Role="DayShift" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shift">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DayShift">
+        <PropertyRef Name="ShiftId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="C__RefactorLog">
+    <Key>
+      <PropertyRef Name="OperationKey" />
+    </Key>
+    <Property Name="OperationKey" Type="Guid" Nullable="false" />
+  </EntityType>
+</Schema>

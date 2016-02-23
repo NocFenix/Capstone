@@ -1,0 +1,19 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[Day] (Table)
+       [dbo].[Shift] (Table)
+       [dbo].[UserShift] (Table)
+       [dbo].[fk_User_ShiftId] (Foreign Key)
+       [dbo].[fk_Shift_UserId] (Foreign Key)
+
+** Supporting actions
